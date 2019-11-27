@@ -7,8 +7,8 @@ var img2;
 function preload() {
   mySong = loadSound("./assets/TG1_new.mp3");
   myImage = loadImage("./assets/tg1.png");
-  img = loadImage("./assets/orchestra.png");
-  img2 = loadImage("./assets/orchestradx.png");
+  img = loadImage("./assets/trumpetsx.png");
+  img2 = loadImage("./assets/trumpetdx.png");
 }
 
 function setup() {

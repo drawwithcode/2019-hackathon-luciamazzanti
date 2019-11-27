@@ -1,34 +1,57 @@
 var mySong;
 var analyzer;
 var myImage;
-// var button;
+var img;
+var img2;
 
 
 function preload() {
   mySong = loadSound("./assets/TG1_new.mp3");
   myImage = loadImage("./assets/tg1.png");
+  img = loadImage("./assets/orchestra.png");
+  img2 = loadImage("./assets/orchestradx.png");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
 
-
-  // create a new Amplitude analyzer
   analyzer = new p5.Amplitude();
 
-  // Patch the input to an volume analyzer (inoltra l'input all'analizzatore di volume)
   analyzer.setInput(mySong);
-
-  // button = createButton('Play');
-  // button.position(windowWidth/6, windowHeight/6);
-  // button.mousePressed(changeBG);
-
 }
 
 function draw() {
 
-  background('#120A8F');
+  background('#0F084B');
+
+  volume = analyzer.getLevel();
+  volume = map(volume, 0, 1, 0, height); //we use height to make it as big as possible
+
+  stroke('#EE6C4D');
+  noFill();
+  strokeWeight(5);
+
+  arc(windowWidth / 2, windowHeight / 2, volume + 450, volume + 300, 180, 360, OPEN);
+  arc(windowWidth / 2, windowHeight / 2, volume + 500, volume + 350, 180, 360, OPEN);
+
+  fill('#26408B');
+  noStroke();
+  ellipse(windowWidth / 2, windowHeight / 2, volume + 400);
+
+  imageMode(CENTER);
+  image(myImage, windowWidth / 2, windowHeight / 2, myImage.width / 2 + volume, myImage.height / 2 + volume);
+
+  stroke('#EE6C4D');
+  noFill();
+  strokeWeight(5);
+
+
+  arc(windowWidth / 2, windowHeight / 2, volume + 450, volume + 300, 0, 180, OPEN);
+  arc(windowWidth / 2, windowHeight / 2, volume + 500, volume + 350, 0, 180, OPEN);
+
+  image(img, windowWidth / 6, windowHeight, img.width / 2, img.height / 2 * volume / 12);
+  image(img2, windowWidth - windowWidth / 6, windowHeight, img2.width / 2, img2.height / 2 * volume / 12);
 
   if (mouseIsPressed == true) {
     if (mySong.isPlaying() == false) {
@@ -37,40 +60,4 @@ function draw() {
       mySong.stop();
     }
   }
-
-  volume = analyzer.getLevel();
-  volume = map(volume, 0, 1, 0, height); //we use height to make it as big as possible
-
-
-  stroke('#B0E0E6');
-  noFill();
-  strokeWeight(5);
-
-  arc(windowWidth / 2, windowHeight / 2, volume + 450, volume + 300, 180, 360, OPEN);
-  arc(windowWidth / 2, windowHeight / 2, volume + 500, volume + 350, 180, 360, OPEN);
-
-
-
-  // if (mySong.isPlaying() == true) {
-  //   arc(windowWidth / 2, windowHeight / 2, 450 + frameCount * 4, 300 + frameCount * 4, 180, 360, OPEN);
-  //   arc(windowWidth / 2, windowHeight / 2, 500 + frameCount * 4, 350 + frameCount * 4, 180, 360, OPEN);
-  // }
-
-  fill('#003399');
-  noStroke();
-  ellipse(windowWidth / 2, windowHeight / 2, volume + 400);
-
-  imageMode(CENTER);
-  image(myImage, windowWidth / 2, windowHeight / 2, myImage.width, myImage.height);
-
-  stroke('#B0E0E6');
-  noFill();
-  strokeWeight(5);
-
-
-  arc(windowWidth / 2, windowHeight / 2, volume + 450, volume + 300, 0, 180, OPEN);
-  arc(windowWidth / 2, windowHeight / 2, volume + 500, volume + 350, 0, 180, OPEN);
-
-  //arc(windowWidth / 2, windowHeight / 2, 500 + frameCount * 4, 350 + frameCount * 4, 0, 180, OPEN);
-
 }
